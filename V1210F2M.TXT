@@ -1,18 +1,18 @@
- %MACRO V1209F1M(INP=, IND=, OUTDATA=, IDVAR=, KEEPVAR=, SEDITS=,
-                 DATE_ASOF=, FMNAME=I1209YC, DF=1 );
+ %MACRO V1210F2M(INP=, IND=, OUTDATA=, IDVAR=, KEEPVAR=, SEDITS=,
+                 DATE_ASOF=, FMNAME=I12101Y09Y10YC, DF=1 );
 
 %**********************************************************************
- * V1209F1M creates HCC and score variables for each person who is
+ * V1210F2M creates HCC and score variables for each person who is
  * present in a person file.
  * If a person has at least one diagnosis in DIAG file then HCCs are
  * created, otherwise HCCs are set to 0.
- * Score variables are created using coefficients from 3 final
- * models: community, institutional, new enrollees.
+ * Score variables are created using coefficients from 3 final models:
+ * community, institutional, and new enrollees.
  *
  * Assumptions about input files:
  *   - both files are sorted by person ID
  *   - person level file has the following variables:
- *     :HICNO   - person ID variable
+ *     :&IDVAR  - person ID variable (it is a macro parameter)
  *     :DOB     - date of birth
  *     :SEX     - sex
  *     :OREC    - original reason for entitlement
@@ -20,8 +20,8 @@
  *     :NEMCAID - Medicaid dummy variable for new enrollees
  *
  *   - diagnosis level file has the following variables:
- *     :HICNO  - person ID variable
- *     :DIAG   - diagnosis
+ *     :&IDVAR  - person ID variable (it is a macro parameter)
+ *     :DIAG    - diagnosis
  *
  * Parameters:
  *      INP       - input person dataset
@@ -29,13 +29,12 @@
  *      OUTDATA   - output dataset
  *      IDVAR     - name of person id variable (HICNO for Medicare data)
  *      KEEPVAR   - variables to keep in the output file
- *      DATE_ASOF - asof date to calculate age (February 1 of prediction
- *                  year. Default is set to 2/1/2005)
- *      FMNAME    - version of format. specific to:
- *                  hcc version - 12
- *                  last update year - 09
- *                  number of HCCs -Y (Y correspond to 70)
- *                  Default FMNAME=I1209YC
+ *      SEDITS    - a switch that controls whether to perform edits on 
+ *                  ICD9. 1-YES, 0-NO
+ *      DATE_ASOF - reference date to calculate age. Set to February 1 
+ *                  of the payment year for consistency with CMS.
+ *      FMNAME    - version of format. For this version of the software
+ *                  it is set to default FMNAME=I12101Y09Y10YC
  *      DF        - normalization factor.
  *                  Default=1
  *
@@ -46,10 +45,6 @@
  *      %V12H70L   - assign labels to HCCs
  *      %V12H70H   - set HCC=0 according to hierarchies
  *      %SCOREVAR  - calculate a score variable
- *
- * Comment:
- *   With the new update of ICD9 the new format will be created
- *   and the value of parameter FMNAME will have to be changed.
  *
  ***********************************************************************;
 
@@ -112,7 +107,7 @@
             DM_CHF1  DM_CVD  CHF_COPD  COPD_CVD_CAD  RF_CHF1  RF_CHF_DM
                        &CMSHCC);
 
-   %*variables for New Enrollees regression  ;
+   %*variables for New Enrollees regression ;
    %LET NE_REG=%STR(
             NEF0_34  NEF35_44 NEF45_54 NEF55_59 NEF60_64
             NEF65    NEF66    NEF67    NEF68    NEF69
@@ -199,7 +194,7 @@
     %***************************************************;
     * step3.5 if there are any diagnoses for a person
     *         then do the following:
-    *         - create CC using format $I1209YC
+    *         - create CC using format $I12101Y09Y10YC
     *         - perform ICD9 edits using macro EDITICD9
     *         - assign additional CC using V12H70M macro
     ****************************************************;
@@ -343,9 +338,9 @@
            /****************************/
            /*   normalize the scores   */
            /***************************/;
-          SCORE_COMMUNITY      = SCORE_COMMUNITY    *&DF;
-          SCORE_INSTITUTIONAL  = SCORE_INSTITUTIONAL*&DF;
-          SCORE_NEW_ENROLLEE   = SCORE_NEW_ENROLLEE *&DF;
+          SCORE_COMMUNITY        = SCORE_COMMUNITY        *&DF;
+          SCORE_INSTITUTIONAL    = SCORE_INSTITUTIONAL    *&DF;
+          SCORE_NEW_ENROLLEE     = SCORE_NEW_ENROLLEE     *&DF;
 
           OUTPUT &OUTDATA;
        END; %*last record for a person;
@@ -356,10 +351,9 @@
  * step4: data checks and proc contents
  ***********************************************************************;
  PROC PRINT U DATA=&OUTDATA(OBS=46);
-     TITLE '*** V1209F1M output file ***';
+     TITLE '*** V1210F2M output file ***';
  RUN ;
  PROC CONTENTS DATA=&OUTDATA;
  RUN;
 
- %MEND V1209F1M;
-
+ %MEND V1210F2M;

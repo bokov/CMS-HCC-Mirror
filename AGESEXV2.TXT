@@ -1,7 +1,7 @@
- %MACRO AGESEXNV(AGEF=, SEX=, OREC=);
+ %MACRO AGESEXV2(AGEF=, SEX=, OREC=);
  %**********************************************************************
  ***********************************************************************
-  1  MACRO NAME:     AGESEXNV
+  1  MACRO NAME:     AGESEXV2
   2  PURPOSE:        create demographic variables used in regressions.
   3  PARAMETERS:
                      AGEF     - age variable (integer)
@@ -68,8 +68,8 @@
 
        %* disabled;
        DISABL = (&AGEF < 65 & &OREC ne "0");
-       %* originally disabled ;
-       ORIGDS  = (&OREC IN ('1','3'))*(DISABL = 0);
+       %* originally disabled: CHANGED FIRST TIME FOR THIS SOFTWARE;
+       ORIGDS  = (&OREC = '1')*(DISABL = 0);
 
  %**********************************************************************
  * variables for all models exept "new enrollee"
@@ -158,5 +158,4 @@
        DISABL ="disabled dummy variable"
       ;
 
- %MEND AGESEXNV;
-
+ %MEND AGESEXV2;

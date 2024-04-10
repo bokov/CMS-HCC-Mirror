@@ -1,13 +1,13 @@
- %MACRO V1210F2M(INP=, IND=, OUTDATA=, IDVAR=, KEEPVAR=, SEDITS=,
+ %MACRO V1210F1M(INP=, IND=, OUTDATA=, IDVAR=, KEEPVAR=, SEDITS=,
                  DATE_ASOF=, FMNAME=I12101Y09Y10YC, DF=1 );
 
 %**********************************************************************
- * V1210F2M creates HCC and score variables for each person who is
+ * V1210F1M creates HCC and score variables for each person who is
  * present in a person file.
  * If a person has at least one diagnosis in DIAG file then HCCs are
  * created, otherwise HCCs are set to 0.
- * Score variables are created using coefficients from 3 final models:
- * community, institutional, and new enrollees.
+ * Score variables are created using coefficients from 4 final models:
+ * community, institutional, new enrollees, SNP new enrollees.
  *
  * Assumptions about input files:
  *   - both files are sorted by person ID
@@ -107,7 +107,7 @@
             DM_CHF1  DM_CVD  CHF_COPD  COPD_CVD_CAD  RF_CHF1  RF_CHF_DM
                        &CMSHCC);
 
-   %*variables for New Enrollees regression ;
+   %*variables for New Enrollees and SNP New Enrollees regression ;
    %LET NE_REG=%STR(
             NEF0_34  NEF35_44 NEF45_54 NEF55_59 NEF60_64
             NEF65    NEF66    NEF67    NEF68    NEF69
@@ -225,6 +225,7 @@
     *         - create score for community model
     *         - create score for institutional model
     *         - create score for new enrollee model
+    *         - create score for SNP new enrollee model
     **************************************************************;
        IF LAST.&IDVAR THEN DO;
 
@@ -335,12 +336,19 @@
 
         %SCOREVAR(PVAR=SCORE_NEW_ENROLLEE, RLIST=&NE_REG, CPREF=NE_);
 
+           /***************************/
+           /* SNP new enrollees model */
+           /***************************/;
+
+        %SCOREVAR(PVAR=SCORE_SNP_NEW_ENROLLEE, RLIST=&NE_REG, CPREF=SNPNE_);
+
            /****************************/
            /*   normalize the scores   */
            /***************************/;
           SCORE_COMMUNITY        = SCORE_COMMUNITY        *&DF;
           SCORE_INSTITUTIONAL    = SCORE_INSTITUTIONAL    *&DF;
           SCORE_NEW_ENROLLEE     = SCORE_NEW_ENROLLEE     *&DF;
+          SCORE_SNP_NEW_ENROLLEE = SCORE_SNP_NEW_ENROLLEE *&DF;
 
           OUTPUT &OUTDATA;
        END; %*last record for a person;
@@ -351,9 +359,9 @@
  * step4: data checks and proc contents
  ***********************************************************************;
  PROC PRINT U DATA=&OUTDATA(OBS=46);
-     TITLE '*** V1210F2M output file ***';
+     TITLE '*** V1210F1M output file ***';
  RUN ;
  PROC CONTENTS DATA=&OUTDATA;
  RUN;
 
- %MEND V1210F2M;
+ %MEND V1210F1M;

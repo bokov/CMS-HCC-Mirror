@@ -2,7 +2,7 @@
     The following is JCL if you are using an IBM-type mainframe:
 
    //JOBCARD
-   //V1210F2P EXEC SAS9,REGION=8M,
+   //V1210F1P EXEC SAS9,REGION=8M,
    // OPTIONS='ERRORS=0,NOCENTER,NEWS'
    //WORK  DD SPACE=(CYL,(1000,2))
    //WORK1   DD SPACE=(CYL,(2000,2))
@@ -18,7 +18,7 @@
    //INCOEF DD DISP=SHR,DSN=XXXX.HCCCOEFN
    //*the output file containing person-level scores
    //OUT DD DISP=(NEW,CATLG,KEEP),
-   //    DSN=XXX.V1210F2P.PERSON,
+   //    DSN=XXX.V1210F1P.PERSON,
    //    SPACE=(TRK,(20,10),RLSE)
    //SYSIN  DD *
 
@@ -37,13 +37,13 @@
  *
  *   DESCRIPTION:
  *
- * V1210F2P program creates seventy HCC variables (&CMSHCC) and three
+ * V1210F1P program creates seventy HCC variables (&CMSHCC) and four
  * score variables for each person who is present in a person file
  * supplied by a user.
  * If a person has at least one diagnosis in DIAG file (supplied by a
  * user) then HCC variables are created, otherwise HCCs are set to 0 .
- * Score variables are created using coefficients from 3 final models:
- * community, institutional, and new enrollees.
+ * Score variables are created using coefficients from 4 final models:
+ * community, institutional, new enrollees, and SNP new enrollees.
  *
  * Assumptions about input files:
  *   - both files are sorted by person ID
@@ -55,7 +55,7 @@
  *     :SEX      - sex
  *     :OREC     - original reason for entitlement
  *     :MCAID    - Medicaid dummy variable (base year)
- *     :NEMCAID  - Medicaid dummy variable for new enrollees (payment
+ *     :NEMCAID  - Medicaid dummy variable for new enrollees (predicted
  *                 year)
  *
  *   - diagnosis level file has the following vars:
@@ -63,7 +63,7 @@
  *                 for Medicare data)
  *     :DIAG     - diagnosis
  *
- * The program supplies parameters to a main macro %V1210F2M that calls
+ * The program supplies parameters to a main macro %V1210F1M that calls
  * other external macros:
  *
  *      %AGESEXNV  - create age/sex, originally disabled, disabled vars
@@ -101,6 +101,7 @@
  *                   - create score for community model
  *                   - create score for institutional model
  *                   - create score for new enrollee model
+ *                   - create score for SNP new enrollee model
  *                   - normalize score if needed
  *         step4: data checks and proc contents
  *
@@ -174,16 +175,17 @@
 
  %LET SCOREVARS=%STR(SCORE_COMMUNITY
                      SCORE_INSTITUTIONAL
-                     SCORE_NEW_ENROLLEE);
+                     SCORE_NEW_ENROLLEE
+                     SCORE_SNP_NEW_ENROLLEE);
 
  %* include main macro;
- %INCLUDE IN0(V1210F2M)/SOURCE2;
+ %INCLUDE IN0(V1210F1M)/SOURCE2;
 
- %V1210F2M(INP      =IN1.PERSON,
-           IND      =IN2.DIAG,
-           OUTDATA  =OUT.PERSON,
-           IDVAR    =HICNO,
-           KEEPVAR  =HICNO &INPUTVARS &SCOREVARS &DEMVARS 
-                     &CMSHCC &CMSCC,
-           SEDITS   =1,
-           DATE_ASOF="1FEB2010"D);
+  %V1210F1M(INP      =IN1.PERSON,
+            IND      =IN2.DIAG,
+            OUTDATA  =OUT.PERSON,
+            IDVAR    =HICNO,
+            KEEPVAR  =HICNO &INPUTVARS &SCOREVARS &DEMVARS 
+                      &CMSHCC &CMSCC,
+            SEDITS   =1,
+            DATE_ASOF="1FEB2010"D);

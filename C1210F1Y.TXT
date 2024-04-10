@@ -1,0 +1,319 @@
+Variable	Label	Weight
+CE_F0_34		0.187
+CE_F35_44		0.206
+CE_F45_54		0.275
+CE_F55_59		0.333
+CE_F60_64		0.411
+CE_F65_69		0.299
+CE_F70_74		0.368
+CE_F75_79		0.457
+CE_F80_84		0.544
+CE_F85_89		0.637
+CE_F90_94		0.761
+CE_F95_GT		0.771
+CE_M0_34		0.12
+CE_M35_44		0.164
+CE_M45_54		0.217
+CE_M55_59		0.249
+CE_M60_64		0.389
+CE_M65_69		0.328
+CE_M70_74		0.413
+CE_M75_79		0.517
+CE_M80_84		0.597
+CE_M85_89		0.692
+CE_M90_94		0.834
+CE_M95_GT		0.98
+CE_Medicaid_Female_Aged		0.179
+CE_Medicaid_Female_Disabled		0.131
+CE_Medicaid_Male_Aged		0.166
+CE_Medicaid_Male_Disabled		0.077
+CE_OriginallyDisabled_Female		0.204
+CE_OriginallyDisabled_Male		0.168
+CE_HCC1	HIV/AIDS	0.945
+CE_HCC2	Septicemia/Shock	0.759
+CE_HCC5	Opportunistic Infections	0.3
+CE_HCC7	Metastatic Cancer and Acute Le	2.276
+CE_HCC8	Lung, Upper Digestive Tract, a	1.053
+CE_HCC9	Lymphatic, Head and Neck, Brai	0.794
+CE_HCC10	Breast, Prostate, Colorectal a	0.208
+CE_HCC15	Diabetes with Renal or Periphe	0.508
+CE_HCC16	Diabetes with Neurologic or Ot	0.408
+CE_HCC17	Diabetes with Acute Complicati	0.339
+CE_HCC18	Diabetes with Ophthalmologic o	0.259
+CE_HCC19	Diabetes without Complication	0.162
+CE_HCC21	Protein-Calorie Malnutrition	0.856
+CE_HCC25	End-Stage Liver Disease	0.978
+CE_HCC26	Cirrhosis of Liver	0.406
+CE_HCC27	Chronic Hepatitis	0.406
+CE_HCC31	Intestinal Obstruction/Perfora	0.311
+CE_HCC32	Pancreatic Disease	0.403
+CE_HCC33	Inflammatory Bowel Disease	0.241
+CE_HCC37	Bone/Joint/Muscle Infections/N	0.535
+CE_HCC38	Rheumatoid Arthritis and Infla	0.346
+CE_HCC44	Severe Hematological Disorders	1.015
+CE_HCC45	Disorders of Immunity	0.912
+CE_HCC51	Drug/Alcohol Psychosis	0.274
+CE_HCC52	Drug/Alcohol Dependence	0.274
+CE_HCC54	Schizophrenia	0.524
+CE_HCC55	Major Depressive, Bipolar, and	0.353
+CE_HCC67	Quadriplegia, Other Extensive	1.011
+CE_HCC68	Paraplegia	0.993
+CE_HCC69	Spinal Cord Disorders/Injuries	0.558
+CE_HCC70	Muscular Dystrophy	0.395
+CE_HCC71	Polyneuropathy	0.327
+CE_HCC72	Multiple Sclerosis	0.599
+CE_HCC73	Parkinsons and Huntingtons Dis	0.592
+CE_HCC74	Seizure Disorders and Convulsi	0.267
+CE_HCC75	Coma, Brain Compression/Anoxic	0.415
+CE_HCC77	Respirator Dependence/Tracheos	1.867
+CE_HCC78	Respiratory Arrest	1.082
+CE_HCC79	Cardio-Respiratory Failure and	0.578
+CE_HCC80	Congestive Heart Failure	0.41
+CE_HCC81	Acute Myocardial Infarction	0.359
+CE_HCC82	Unstable Angina and Other Acut	0.284
+CE_HCC83	Angina Pectoris/Old Myocardial	0.244
+CE_HCC92	Specified Heart Arrhythmias	0.293
+CE_HCC95	Cerebral Hemorrhage	0.324
+CE_HCC96	Ischemic or Unspecified Stroke	0.265
+CE_HCC100	Hemiplegia/Hemiparesis	0.437
+CE_HCC101	Cerebral Palsy and Other Paral	0.18
+CE_HCC104	Vascular Disease with Complica	0.61
+CE_HCC105	Vascular Disease	0.316
+CE_HCC107	Cystic Fibrosis	0.399
+CE_HCC108	Chronic Obstructive Pulmonary	0.399
+CE_HCC111	Aspiration and Specified Bacte	0.703
+CE_HCC112	Pneumococcal Pneumonia, Emphys	0.249
+CE_HCC119	Proliferative Diabetic Retinop	0.252
+CE_HCC130	Dialysis Status	1.349
+CE_HCC131	Renal Failure	0.368
+CE_HCC132	Nephritis	0.125
+CE_HCC148	Decubitus Ulcer of Skin	1.153
+CE_HCC149	Chronic Ulcer of Skin, Except	0.449
+CE_HCC150	Extensive Third-Degree Burns	1.416
+CE_HCC154	Severe Head Injury	0.415
+CE_HCC155	Major Head Injury	0.106
+CE_HCC157	Vertebral Fractures without Sp	0.443
+CE_HCC158	Hip Fracture/Dislocation	0.429
+CE_HCC161	Traumatic Amputation	0.678
+CE_HCC164	Major Complications of Medical	0.296
+CE_HCC174	Major Organ Transplant Status	0.705
+CE_HCC176	Artificial Openings for Feedin	0.662
+CE_HCC177	Amputation Status, Lower Limb/	0.678
+CE_D_HCC5		0.623
+CE_D_HCC44		1.036
+CE_D_HCC51		0.729
+CE_D_HCC52		0.31
+CE_D_HCC107		1.097
+CE_DM_CHF1		0.154
+CE_DM_CVD		0.102
+CE_CHF_COPD		0.219
+CE_COPD_CVD_CAD		0.173
+CE_RF_CHF1		0.231
+CE_RF_CHF_DM		0.477
+INS_F0_34		1.026
+INS_F35_44		0.884
+INS_F45_54		0.888
+INS_F55_59		0.943
+INS_F60_64		0.943
+INS_F65_69		0.971
+INS_F70_74		0.931
+INS_F75_79		0.835
+INS_F80_84		0.775
+INS_F85_89		0.704
+INS_F90_94		0.614
+INS_F95_GT		0.457
+INS_M0_34		1.03
+INS_M35_44		0.871
+INS_M45_54		0.871
+INS_M55_59		0.978
+INS_M60_64		1.015
+INS_M65_69		1.221
+INS_M70_74		1.154
+INS_M75_79		1.143
+INS_M80_84		1.087
+INS_M85_89		1.001
+INS_M90_94		0.932
+INS_M95_GT		0.743
+INS_MCAID	Y04 Medicaid	0.091
+INS_ORIGDS	Y05 originally disabled	0.023
+INS_HCC1	HIV/AIDS	0.967
+INS_HCC2	Septicemia/Shock	0.764
+INS_HCC5	Opportunistic Infections	0.288
+INS_HCC7	Metastatic Cancer and Acute Le	0.824
+INS_HCC8	Lung, Upper Digestive Tract, a	0.47
+INS_HCC9	Lymphatic, Head and Neck, Brai	0.368
+INS_HCC10	Breast, Prostate, Colorectal a	0.182
+INS_HCC15	Diabetes with Renal or Periphe	0.459
+INS_HCC16	Diabetes with Neurologic or Ot	0.459
+INS_HCC17	Diabetes with Acute Complicati	0.459
+INS_HCC18	Diabetes with Ophthalmologic o	0.459
+INS_HCC19	Diabetes without Complication	0.248
+INS_HCC21	Protein-Calorie Malnutrition	0.374
+INS_HCC25	End-Stage Liver Disease	0.654
+INS_HCC26	Cirrhosis of Liver	0.384
+INS_HCC27	Chronic Hepatitis	0.384
+INS_HCC31	Intestinal Obstruction/Perfora	0.345
+INS_HCC32	Pancreatic Disease	0.309
+INS_HCC33	Inflammatory Bowel Disease	0.205
+INS_HCC37	Bone/Joint/Muscle Infections/N	0.497
+INS_HCC38	Rheumatoid Arthritis and Infla	0.215
+INS_HCC44	Severe Hematological Disorders	0.493
+INS_HCC45	Disorders of Immunity	0.427
+INS_HCC51	Drug/Alcohol Psychosis	0
+INS_HCC52	Drug/Alcohol Dependence	0
+INS_HCC54	Schizophrenia	0.351
+INS_HCC55	Major Depressive, Bipolar, and	0.293
+INS_HCC67	Quadriplegia, Other Extensive	0.434
+INS_HCC68	Paraplegia	0.434
+INS_HCC69	Spinal Cord Disorders/Injuries	0.225
+INS_HCC70	Muscular Dystrophy	0
+INS_HCC71	Polyneuropathy	0.225
+INS_HCC72	Multiple Sclerosis	0.145
+INS_HCC73	Parkinsons and Huntingtons Dis	0.092
+INS_HCC74	Seizure Disorders and Convulsi	0.177
+INS_HCC75	Coma, Brain Compression/Anoxic	0
+INS_HCC77	Respirator Dependence/Tracheos	1.559
+INS_HCC78	Respiratory Arrest	1.235
+INS_HCC79	Cardio-Respiratory Failure and	0.445
+INS_HCC80	Congestive Heart Failure	0.228
+INS_HCC81	Acute Myocardial Infarction	0.424
+INS_HCC82	Unstable Angina and Other Acut	0.424
+INS_HCC83	Angina Pectoris/Old Myocardial	0.29
+INS_HCC92	Specified Heart Arrhythmias	0.207
+INS_HCC95	Cerebral Hemorrhage	0.179
+INS_HCC96	Ischemic or Unspecified Stroke	0.179
+INS_HCC100	Hemiplegia/Hemiparesis	0.039
+INS_HCC101	Cerebral Palsy and Other Paral	0
+INS_HCC104	Vascular Disease with Complica	0.482
+INS_HCC105	Vascular Disease	0.165
+INS_HCC107	Cystic Fibrosis	0.631
+INS_HCC108	Chronic Obstructive Pulmonary	0.359
+INS_HCC111	Aspiration and Specified Bacte	0.573
+INS_HCC112	Pneumococcal Pneumonia, Emphys	0.181
+INS_HCC119	Proliferative Diabetic Retinop	0.497
+INS_HCC130	Dialysis Status	1.718
+INS_HCC131	Renal Failure	0.388
+INS_HCC132	Nephritis	0.253
+INS_HCC148	Decubitus Ulcer of Skin	0.485
+INS_HCC149	Chronic Ulcer of Skin, Except	0.241
+INS_HCC150	Extensive Third-Degree Burns	0
+INS_HCC154	Severe Head Injury	0
+INS_HCC155	Major Head Injury	0
+INS_HCC157	Vertebral Fractures without Sp	0.161
+INS_HCC158	Hip Fracture/Dislocation	0
+INS_HCC161	Traumatic Amputation	0.26
+INS_HCC164	Major Complications of Medical	0.309
+INS_HCC174	Major Organ Transplant Status	0.92
+INS_HCC176	Artificial Openings for Feedin	0.841
+INS_HCC177	Amputation Status, Lower Limb/	0.26
+INS_D_HCC5		1.016
+INS_D_HCC44		0.362
+INS_D_HCC51		0.299
+INS_D_HCC52		0.299
+INS_D_HCC107		0
+INS_DM_CHF1		0.125
+INS_DM_CVD		0.028
+INS_CHF_COPD		0.194
+INS_COPD_CVD_CAD		0.071
+INS_RF_CHF1		0
+INS_RF_CHF_DM		0.358
+NE_NEF0_34		0.496
+NE_NEF35_44		0.652
+NE_NEF45_54		0.841
+NE_NEF55_59		0.969
+NE_NEF60_64		1.094
+NE_NEF65		0.497
+NE_NEF66		0.554
+NE_NEF67		0.595
+NE_NEF68		0.619
+NE_NEF69		0.652
+NE_NEF70_74		0.759
+NE_NEF75_79		0.955
+NE_NEF80_84		1.118
+NE_NEF85_89		1.255
+NE_NEF90_94		1.358
+NE_NEF95_GT		1.232
+NE_NEM0_34		0.344
+NE_NEM35_44		0.583
+NE_NEM45_54		0.729
+NE_NEM55_59		0.827
+NE_NEM60_64		1.033
+NE_NEM65		0.55
+NE_NEM66		0.586
+NE_NEM67		0.664
+NE_NEM68		0.664
+NE_NEM69		0.723
+NE_NEM70_74		0.855
+NE_NEM75_79		1.113
+NE_NEM80_84		1.299
+NE_NEM85_89		1.468
+NE_NEM90_94		1.63
+NE_NEM95_GT		1.638
+NE_Medicaid_female0_64		0.311
+NE_Medicaid_female65		0.461
+NE_Medicaid_female66_69		0.433
+NE_Medicaid_female70_74		0.449
+NE_Medicaid_female75_GT		0.402
+NE_Medicaid_male0_64		0.331
+NE_Medicaid_male65		0.472
+NE_Medicaid_male66_69		0.472
+NE_Medicaid_male70_74		0.467
+NE_Medicaid_male75_GT		0.371
+NE_Origdis_female65		0.599
+NE_Origdis_female66_69		0.599
+NE_Origdis_female70_74		0.562
+NE_Origdis_female75_GT		0.475
+NE_Origdis_male65		0.566
+NE_Origdis_male66_69		0.531
+NE_Origdis_male70_74		0.537
+NE_Origdis_male75_GT		0.408
+SNPNE_NEF0_34		0.811
+SNPNE_NEF35_44		1.001
+SNPNE_NEF45_54		1.18
+SNPNE_NEF55_59		1.326
+SNPNE_NEF60_64		1.389
+SNPNE_NEF65		0.768
+SNPNE_NEF66		0.803
+SNPNE_NEF67		0.83
+SNPNE_NEF68		0.873
+SNPNE_NEF69		0.902
+SNPNE_NEF70_74		1.02
+SNPNE_NEF75_79		1.255
+SNPNE_NEF80_84		1.393
+SNPNE_NEF85_89		1.502
+SNPNE_NEF90_94		1.639
+SNPNE_NEF95_GT		1.593
+SNPNE_NEM0_34		0.728
+SNPNE_NEM35_44		1.008
+SNPNE_NEM45_54		1.148
+SNPNE_NEM55_59		1.308
+SNPNE_NEM60_64		1.415
+SNPNE_NEM65		0.856
+SNPNE_NEM66		0.875
+SNPNE_NEM67		0.978
+SNPNE_NEM68		0.981
+SNPNE_NEM69		0.998
+SNPNE_NEM70_74		1.186
+SNPNE_NEM75_79		1.422
+SNPNE_NEM80_84		1.581
+SNPNE_NEM85_89		1.776
+SNPNE_NEM90_94		1.89
+SNPNE_NEM95_GT		1.996
+SNPNE_Medicaid_female0_64		0.315
+SNPNE_Medicaid_female65		0.47
+SNPNE_Medicaid_female66_69		0.47
+SNPNE_Medicaid_female70_74		0.437
+SNPNE_Medicaid_female75_GT		0.374
+SNPNE_Medicaid_male0_64		0.343
+SNPNE_Medicaid_male65		0.474
+SNPNE_Medicaid_male66_69		0.474
+SNPNE_Medicaid_male70_74		0.411
+SNPNE_Medicaid_male75_GT		0.437
+SNPNE_Origdis_female65		0.601
+SNPNE_Origdis_female66_69		0.601
+SNPNE_Origdis_female70_74		0.612
+SNPNE_Origdis_female75_GT		0.499
+SNPNE_Origdis_male65		0.536
+SNPNE_Origdis_male66_69		0.611
+SNPNE_Origdis_male70_74		0.498
+SNPNE_Origdis_male75_GT		0.36

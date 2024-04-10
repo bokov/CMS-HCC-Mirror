@@ -1,40 +1,43 @@
-****************************************************************************************
+ /*
+    The following is JCL if you are using an IBM-type mainframe:
 
-The following is JCL if you are using an IBM-type mainframe:
+   //JOBCARD
+   //V1209F1P EXEC SAS9,REGION=8M,
+   // OPTIONS='ERRORS=0,NOCENTER,NEWS'
+   //WORK  DD SPACE=(CYL,(1000,2))
+   //WORK1   DD SPACE=(CYL,(2000,2))
+   //* user-defined the location of formats
+   //LIBRARY DD DISP=SHR,DSN=XXXX.XXXXXXX
+   //*user-defined the location of macros
+   //IN0 DD DISP=SHR,DSN=XXXX.XXXXXX
+   //*the location of person-level file
+   //IN1 DD DISP=SHR,DSN=XXXX.PERSON
+   //*the location of the diagnosis file
+   //IN2 DD DISP=SHR,DSN=XXXX.DIAG
+   //*the location of the file containing all coefficients
+   //INCOEF DD DISP=SHR,DSN=XXXX.HCCCOEFN
+   //*the output file containing person-level scores
+   //OUT DD DISP=(NEW,CATLG,KEEP),
+   //    DSN=XXX.V1209F1P.PERSON,
+   //    SPACE=(TRK,(20,10),RLSE)
+   //SYSIN  DD *
 
-
-//JOBCARD
-//V1206A0P EXEC SAS8,REGION=8M,
-// OPTIONS='ERRORS=0,NOCENTER,NEWS'
-//WORK  DD SPACE=(CYL,(1000,2))
-//WORK1   DD SPACE=(CYL,(2000,2))
-//LIBRARY DD DISP=SHR,DSN=XXXX.XXXXXXX  /* user-defined location of formats */
-//IN0 DD DISP=SHR,DSN=XXXX.XXXXXX       /*user-defined the location of macros  */
-//IN1 DD DISP=SHR,DSN=XXXX.PERSON       /*the location of person-level file  */
-//IN2 DD DISP=SHR,DSN=XXXX.DIAG         /*the location of the diagnosis file */  
-//INCOEF DD DISP=SHR,DSN=XXXX.HCCCOEF   /*the location of the file containing all coefficients */
-//OUT DD DISP=(NEW,CATLG,KEEP),
-//    DSN=XXX.V1206D4P.PERSON,           /*the output file containing person-level scores */ 
-//    SPACE=(TRK,(20,10),RLSE)
-//SYSIN  DD *
-
-
-******************************************************************************************
-  If you are using PC-SAS, you must specify the location of the files 
+   ******************************************************************
+  If you are using PC-SAS, you must specify the location of the files
   on your PC in a libname/filename statement.
 
-LIBNAME LIBRARY "location of formats";
-FILENAME IN0 "location of macros";  
-LIBNAME  IN1 "location of person-level file";
-LIBNAME  IN2 "location of diagnosis file";
-LIBNAME  INCOEF "location of the coefficients file";
-LIBNAME  OUT "location for the output file"; 
-
+  LIBNAME LIBRARY "location of formats";
+  FILENAME IN0 "location of macros";
+  LIBNAME  IN1 "location of person-level file";
+  LIBNAME  IN2 "location of diagnosis file";
+  LIBNAME  INCOEF "location of the coefficients file";
+  LIBNAME  OUT "location for the output file";
+  */
  ***********************************************************************
  *
  *   DESCRIPTION:
  *
- * V1206D4P program creates seventy HCC variables (&CMSHCC) and three
+ * V1209F1P program creates seventy HCC variables (&CMSHCC) and three
  * score variables for each person who is present in a person file
  * supplied by a user.
  * If a person has at least one diagnosis in DIAG file (supplied by a
@@ -48,6 +51,7 @@ LIBNAME  OUT "location for the output file";
  *   - person level file has the following variables:
  *     :HICNO    - person ID variable
  *     :DOB      - date of birth
+ *     :SEX      - sex
  *     :OREC     - original reason for entitlement
  *     :MCAID    - Medicaid dummy variable (base year)
  *     :NEMCAID  - Medicaid dummy variable for new enrollees (predicted
@@ -55,27 +59,24 @@ LIBNAME  OUT "location for the output file";
  *
  *   - diagnosis level file has the following vars:
  *     :HICNO - person ID variable
- *     :DIAG   - diagnosis
+ *     :DIAG  - diagnosis
  *
- * The program supplies parameters to a main macro %V1206D4M that calls
+ * The program supplies parameters to a main macro %V1209F1M that calls
  * other external macros:
  *
- *      %AGESEXVR  - create age/sex, originally disabled, disabled vars
+ *      %AGESEXNV  - create age/sex, originally disabled, disabled vars
  *      %EDITICD9  - perform edits to diagnosis
  *      %V12H70M   - assign one ICD9 to multiple CCs
  *      %V12H70L   - assign labels to HCCs
  *      %V12H70H   - set HCC=0 according to hierarchies
- *      %SCOREVR   - calculate score variable
+ *      %SCOREVAR  - calculate a score variable
  *
- * Comment: the format:
- *            $I1206YC - is specific for this version of the software
- *            (12- HCC version, 06- FY 2006 ICD9 update, 0- 70 HCCs set)
- *            $I&VR.C - VR=1206Y is a macro parameter for this
- *            update of ICD9. This parameter is set as the default
- *            in V1206D4M macro.
- *            With the new update of ICD9 the new format will be created
- *            and the value of parameter VR will have to be changed.
- *
+ * Comment: the format-
+ *          $I1209YC - is specific for this version of the software
+ *          (12- HCC version, 09- FY 2009 ICD9 update, Y- 70 HCCs set).
+ *          It is a macro parameter FMNAME=I1209YC (default).
+ *          With the new update of ICD9 the new format will be created
+ *          and the value of parameter FMNAME will have to be changed.
  *
  * Program steps:
  *         step1: include external macros
@@ -89,14 +90,14 @@ LIBNAME  OUT "location for the output file";
  *                  and calculate age
  *         step3.5: if there are any diagnoses for a person
  *                  then do the following:
- *                   - create CC using format $ICD9CC
+ *                   - create CC using format $I1209YC
  *                   - perform ICD9 edits using macro EDITICD9
- *                   - create additional CC using MLTCCDG macro
+ *                   - create additional CC using V12H70M macro
  *         step3.6: for the last record for a person do the
  *                  following:
  *                   - create demographic variables needed
- *                     for regressions (macro AGESEXVR)
- *                   - create HCC using hierarchies (macro V12H70M)
+ *                     for regressions (macro AGESEXNV)
+ *                   - create HCC using hierarchies (macro V12H70H)
  *                   - create HCC interaction variables
  *                   - create HCC and DISABL interaction variables
  *                   - set HCCs and interaction vars to zero if there
@@ -104,6 +105,7 @@ LIBNAME  OUT "location for the output file";
  *                   - create score for community model
  *                   - create score for institutional model
  *                   - create score for new enrollee model
+ *                   - normalize score if needed
  *         step4: data checks and proc contents
  *
  *   USER CUSTOMIZATION:
@@ -113,17 +115,18 @@ LIBNAME  OUT "location for the output file";
  *      IND      - SAS input diagnosis dataset
  *      OUTDATA  - SAS output dataset
  *      IDVAR    - name of person id variable (HICNO for medicare data)
- *      KEEPVAR  - variables to keep in the output dataset in addition
- *                 to 70 HCCs
- *      SEDITS   - a switch that controls whether perform edits on ICD9
- *                1-YES, 0-NO
- *      DATE_ASOF-asof date to calculate age (February 1 of prediction
- *                year)
+ *      KEEPVAR  - variables to keep in the output dataset
+ *      SEDITS   - a switch that controls whether to perform edits on 
+ *                 ICD9. 1-YES, 0-NO
+ *      DATE_ASOF- asof date to calculate age (February 1 of prediction
+ *                 year)
+ *      FMNAME   - format name (set to I1209YC by default)
+ *      DF       - normalization factor (set to 1 by default)
  ***********************************************************************;
 
-
  %LET INPUTVARS=%STR(HICNO SEX DOB MCAID NEMCAID OREC);
- *demographic variables;
+
+ %*demographic variables;
  %LET DEMVARS  =%STR(AGEF ORIGDS DISABL
                      F0_34  F35_44 F45_54 F55_59 F60_64 F65_69
                      F70_74 F75_79 F80_84 F85_89 F90_94 F95_GT
@@ -137,7 +140,8 @@ LIBNAME  OUT "location for the output file";
                      NEM65    NEM66    NEM67    NEM68    NEM69
                      NEM70_74 NEM75_79 NEM80_84 NEM85_89 NEM90_94
                      NEM95_GT);
-  *list of HCCs included in models;
+
+ %*list of HCCs included in models;
  %LET CMSHCC = %STR(
       HCC1      HCC2      HCC5     HCC7       HCC8
       HCC9      HCC10     HCC15    HCC16      HCC17
@@ -158,13 +162,13 @@ LIBNAME  OUT "location for the output file";
                      SCORE_INSTITUTIONAL
                      SCORE_NEW_ENROLLEE);
 
-  %INCLUDE IN0(V1206D4M)/SOURCE2;
+ %* include main macro;
+ %INCLUDE IN0(V1209F1M)/SOURCE2;
 
-  %V1206D4M(INP      =IN1.PERSON,
+  %V1209F1M(INP      =IN1.PERSON,
             IND      =IN2.DIAG,
             OUTDATA  =OUT.PERSON,
             IDVAR    =HICNO,
-            KEEPVAR  =&INPUTVARS &SCOREVARS &DEMVARS &CMSHCC /*&ADDVAR*/,
+            KEEPVAR  =&INPUTVARS &SCOREVARS &DEMVARS &CMSHCC,
             SEDITS   =1,
-            DATE_ASOF="1FEB2007"D);
-
+            DATE_ASOF="1FEB2009"D);
